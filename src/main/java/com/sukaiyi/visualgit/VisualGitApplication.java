@@ -1,6 +1,7 @@
 package com.sukaiyi.visualgit;
 
-import com.sukaiyi.visualgit.webhandler.TestHandler;
+import com.sukaiyi.visualgit.webhandler.StaticHandler;
+import com.sukaiyi.visualgit.webhandler.IndexHandler;
 import io.undertow.Undertow;
 
 public class VisualGitApplication {
@@ -10,9 +11,8 @@ public class VisualGitApplication {
                 .addHttpListener(8080, "localhost")
                 .setHandler(
                         new PathBasedWebRequestDispatcher()
-                                .match("/test", new TestHandler())
-                                .match("/test1", new TestHandler())
-                                .match("/test2", new TestHandler())
+                                .match("/index", new IndexHandler())
+                                .match("/static/.*", new StaticHandler())
                 ).build();
         server.start();
     }

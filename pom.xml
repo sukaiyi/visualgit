@@ -20,9 +20,16 @@
             <version>2.0.1.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.6.0.201912101111-r</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
 
@@ -33,6 +40,7 @@
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.html</include>
+                    <include>**/*.js</include>
                     <include>**/*.ftl</include>
                 </includes>
                 <filtering>false</filtering>
