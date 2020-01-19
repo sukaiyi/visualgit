@@ -20,6 +20,5 @@ java -jar visual-git-1.0-SNAPSHOT-shaded.jar <repoPath>
 
 ### 三、效果图
 
-![](images/Snipaste_2020-01-19_17-23-43.png)
-
-![](images/Snipaste_2020-01-19_17-23-37.png)
+<img src="images/Snipaste_2020-01-19_17-23-43.png"/>
+<img src="images/Snipaste_2020-01-19_17-23-37.png"/>
