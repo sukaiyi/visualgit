@@ -24,7 +24,7 @@ public class DotChartHandler extends AbstractFreemakerHandler {
 
     @Override
     protected Object getDataModel(HttpServerExchange exchange) {
-        String repoPath = "C:\\Users\\wang\\Documents\\Project\\hutool";
+        String repoPath = "C:\\Users\\HT-Dev\\Documents\\Projects\\hms";
         List<GitCommitInfo> commitInfos = Optional.of(repoPath)
                 .map(GitLogFetcher::fetch)
                 .map(GitLogParser::parse)

@@ -13,9 +13,9 @@ import java.util.List;
 @Builder
 public class GitCommitInfo {
     /**
-     * hash
+     * revision
      */
-    private String hash;
+    private String revision;
     /**
      * 提交时间戳
      */

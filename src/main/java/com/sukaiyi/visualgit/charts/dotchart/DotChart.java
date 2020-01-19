@@ -18,9 +18,9 @@ public class DotChart implements Chart {
     public Object data(List<GitCommitInfo> commitInfos) {
         // 按人分组
         // [
-        //     [timestamp, insertions, fileCount, email],
-        //     [timestamp, insertions, fileCount, email],
-        //     [timestamp, insertions, fileCount, email]...
+        //     [timestamp, insertions, fileCount, author, email, revision, title],
+        //     [timestamp, insertions, fileCount, author, email, revision, title],
+        //     [timestamp, insertions, fileCount, author, email, revision, title],...
         // ]
         Map<String, List<GitCommitInfo>> infoGroupByAuthor = commitInfos.stream()
                 .collect(Collectors.groupingBy(GitCommitInfo::getAuthor))
@@ -43,20 +43,22 @@ public class DotChart implements Chart {
                 data.put(author, dataThisAuthor);
             }
             for (GitCommitInfo commit : infoThisAuthor) {
+                String title = Optional.ofNullable(commit.getTitle()).orElse("");
                 List<Object> dataThisCommit = Arrays.asList(
                         commit.getTimestamp(),
                         Optional.ofNullable(commit.getInsertions()).orElse(0),
                         Optional.ofNullable(commit.getFileCount()).orElse(0),
                         Optional.ofNullable(commit.getAuthor()).orElse(""),
                         Optional.ofNullable(commit.getEmail()).orElse(""),
-                        Optional.ofNullable(commit.getHash()).orElse(""),
-                        Optional.ofNullable(commit.getTitle()).orElse("")
+                        Optional.ofNullable(commit.getRevision()).orElse(""),
+                        title.length() > 30 ? title.substring(0, 30) + "..." : title
                 );
                 assert dataThisAuthor != null;
                 dataThisAuthor.add(dataThisCommit);
             }
         }
         return new DotChartModel(
+                "共 " + commitInfos.size() + " 个提交",
                 new ArrayList<>(data.keySet()),
                 data.entrySet().stream()
                         .collect(Collectors.toMap(Map.Entry::getKey, entry -> gson.toJson(entry.getValue()), (o, n) -> n, LinkedHashMap::new))
@@ -67,6 +69,7 @@ public class DotChart implements Chart {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DotChartModel {
+        private String title;
         private List<String> authors;
         private Map<String, String> data;
     }

@@ -1,5 +1,6 @@
 package com.sukaiyi.visualgit;
 
+import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
 import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
@@ -14,6 +15,7 @@ public class VisualGitApplication {
                         new PathBasedWebRequestDispatcher()
                                 .match("/index", new IndexHandler())
                                 .match("/dotchart", new DotChartHandler())
+                                .match("/commitDetail", new CommitDetailHandler())
                                 .match("/static/.*", new StaticHandler())
                 ).build();
         server.start();

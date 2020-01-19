@@ -48,7 +48,8 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<iframe id="iframe" src="dotchart" scrolling="no" style="border: none" width="100%"></iframe>
+<iframe id="iframe" src="dotchart" scrolling="no" style="border: none" onload="resetIframeHeight()"
+        width="100%"></iframe>
 <script type="text/javascript">
     $(".nav-item").click(function () {
         $(".nav-item").removeClass("active");
@@ -59,8 +60,13 @@
         navbar.removeClass("navbar-inverse");
         navbar.addClass("navbar-" + this.getAttribute("tinge"))
     });
-    var navHeight = $("#navbar").outerHeight();
-    $("#iframe").height(document.documentElement.clientHeight - navHeight);
+    window.addEventListener("resize", resetIframeHeight);
+
+    function resetIframeHeight() {
+        var navHeight = $("#navbar").outerHeight();
+        $("#iframe").height(document.documentElement.clientHeight - navHeight);
+    }
+
 </script>
 </body>
 </html>
