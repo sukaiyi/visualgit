@@ -30,7 +30,6 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li src="dotchart" tinge="inverse" class="nav-item active"><a href="#">提交时序图</a></li>
-                <li src="https://www.baidu.com" tinge="default" class="nav-item"><a href="#">成员比对</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
