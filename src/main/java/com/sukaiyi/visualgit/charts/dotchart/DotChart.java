@@ -46,8 +46,8 @@ public class DotChart implements Chart {
                 String title = Optional.ofNullable(commit.getTitle()).orElse("");
                 List<Object> dataThisCommit = Arrays.asList(
                         commit.getTimestamp(),
-                        Optional.ofNullable(commit.getInsertions()).orElse(0),
-                        Optional.ofNullable(commit.getFileCount()).orElse(0),
+                        Optional.ofNullable(commit.getInsertions()).orElse(0L),
+                        Optional.ofNullable(commit.getFileCount()).orElse(0L),
                         Optional.ofNullable(commit.getAuthor()).orElse(""),
                         Optional.ofNullable(commit.getEmail()).orElse(""),
                         Optional.ofNullable(commit.getRevision()).orElse(""),

@@ -1,12 +1,13 @@
 package com.sukaiyi.visualgit.charts.dotchart;
 
+import com.sukaiyi.visualgit.common.GitCommitInfo;
+import com.sukaiyi.visualgit.common.GitLogFetcher;
+import com.sukaiyi.visualgit.common.GitLogParser;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
 import io.undertow.server.HttpServerExchange;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 public class CommitDetailHandler extends AbstractFreemakerHandler {
@@ -25,8 +26,16 @@ public class CommitDetailHandler extends AbstractFreemakerHandler {
                 .map(Deque::poll)
                 .orElse(null);
 
-        return new HashMap<String, String>() {{
-            put("revision", revision);
-        }};
+        String repoPath = "C:\\Users\\HT-Dev\\Documents\\Projects\\hms";
+        List<GitCommitInfo> commitInfos = Optional.of(repoPath)
+                .map(GitLogFetcher::fetch)
+                .map(GitLogParser::parse)
+                .orElse(Collections.emptyList());
+
+        return commitInfos.stream().filter(e -> Objects.equals(e.getRevision(), revision)).findFirst().orElseGet(() -> {
+            GitCommitInfo defaultValue = new GitCommitInfo();
+            defaultValue.setRevision(revision);
+            return defaultValue;
+        });
     }
 }

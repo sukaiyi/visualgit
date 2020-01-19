@@ -4,7 +4,9 @@ import com.sukaiyi.visualgit.utils.IoUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class GitLogFetcher {
@@ -16,16 +18,24 @@ public class GitLogFetcher {
         InputStream is = null;
         try {
             is = GitLogFetcher.class.getClassLoader().getResourceAsStream("app.properties");
+            assert is != null;
             prop.load(is);
             GIT_LOG_COMMAND = prop.getProperty("git.log.command");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         } finally {
             IoUtils.close(is);
         }
     }
 
+    private static final Map<String, String> CACHE = new ConcurrentHashMap<>();
+
     public static String fetch(String repoPath) {
+        String cachedValue = CACHE.get(repoPath);
+        if (cachedValue != null) {
+            return cachedValue;
+        }
+
         InputStream is = null;
         BufferedReader reader = null;
         try {
@@ -38,6 +48,7 @@ public class GitLogFetcher {
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
+            CACHE.put(repoPath, sb.toString());
             return sb.toString();
         } catch (IOException e) {
             log.error(e.getMessage(), e);

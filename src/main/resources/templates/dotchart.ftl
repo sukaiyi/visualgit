@@ -78,7 +78,7 @@
                     + '   Notes：' + value[6] + '<br>'
                     + '   代码行：' + value[1] + '<br>'
                     + ' 涉及文件：' + value[2] + '<br>'
-                    + ' 提交时间：' + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + '<br>';
+                    + ' 提交时间：' + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + '<br>';
 
             }
         },

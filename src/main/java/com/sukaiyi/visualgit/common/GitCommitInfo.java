@@ -40,15 +40,15 @@ public class GitCommitInfo {
     /**
      * 影响的文件数量
      */
-    private Integer fileCount;
+    private Long fileCount;
     /**
      * 插入行
      */
-    private Integer insertions;
+    private Long insertions;
     /**
      * 删除行
      */
-    private Integer deletions;
+    private Long deletions;
 
     /**
      * 该提交的文件信息
@@ -67,10 +67,10 @@ public class GitCommitInfo {
         /**
          * 插入行
          */
-        private Integer insertions;
+        private Long insertions;
         /**
          * 删除行
          */
-        private Integer deletions;
+        private Long deletions;
     }
 }

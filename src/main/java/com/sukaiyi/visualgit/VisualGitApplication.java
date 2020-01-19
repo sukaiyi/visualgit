@@ -2,6 +2,7 @@ package com.sukaiyi.visualgit;
 
 import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
+import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
 import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
 import io.undertow.Undertow;
@@ -16,6 +17,7 @@ public class VisualGitApplication {
                                 .match("/index", new IndexHandler())
                                 .match("/dotchart", new DotChartHandler())
                                 .match("/commitDetail", new CommitDetailHandler())
+                                .match("/fileChangeDetail", new FileChangeDetailHandler())
                                 .match("/static/.*", new StaticHandler())
                 ).build();
         server.start();
