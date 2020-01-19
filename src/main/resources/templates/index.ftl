@@ -12,7 +12,7 @@
     <title>Visual Git</title>
 </head>
 <body style="margin: 0;overflow-y: hidden;">
-<nav id="navbar" class="navbar navbar-inverse" style="margin: 0;border-radius: 0">
+<nav id="navbar" class="navbar navbar-default" style="margin: 0;border-radius: 0">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -29,7 +29,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li src="dotchart" tinge="inverse" class="nav-item active"><a href="#">提交时序图</a></li>
+                <li src="overview" tinge="default" class="nav-item active"><a href="#">总览</a></li>
+                <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交时序图</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -47,7 +48,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<iframe id="iframe" src="dotchart" scrolling="no" style="border: none" onload="resetIframeHeight()"
+<iframe id="iframe" src="overview" scrolling="no" style="border: none" onload="resetIframeHeight()"
         width="100%"></iframe>
 <script type="text/javascript">
     $(".nav-item").click(function () {
