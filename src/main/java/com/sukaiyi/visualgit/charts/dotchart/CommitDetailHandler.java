@@ -1,5 +1,6 @@
 package com.sukaiyi.visualgit.charts.dotchart;
 
+import com.sukaiyi.visualgit.VisualGitApplication;
 import com.sukaiyi.visualgit.common.GitCommitInfo;
 import com.sukaiyi.visualgit.common.GitLogFetcher;
 import com.sukaiyi.visualgit.common.GitLogParser;
@@ -26,7 +27,7 @@ public class CommitDetailHandler extends AbstractFreemakerHandler {
                 .map(Deque::poll)
                 .orElse(null);
 
-        String repoPath = "C:\\Users\\HT-Dev\\Documents\\Projects\\hms";
+        String repoPath = VisualGitApplication.getInstance().getWorkRepo();
         List<GitCommitInfo> commitInfos = Optional.of(repoPath)
                 .map(GitLogFetcher::fetch)
                 .map(GitLogParser::parse)

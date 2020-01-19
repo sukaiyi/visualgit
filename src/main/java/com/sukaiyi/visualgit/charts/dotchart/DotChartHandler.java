@@ -1,5 +1,6 @@
 package com.sukaiyi.visualgit.charts.dotchart;
 
+import com.sukaiyi.visualgit.VisualGitApplication;
 import com.sukaiyi.visualgit.charts.Chart;
 import com.sukaiyi.visualgit.common.GitCommitInfo;
 import com.sukaiyi.visualgit.common.GitLogFetcher;
@@ -24,7 +25,7 @@ public class DotChartHandler extends AbstractFreemakerHandler {
 
     @Override
     protected Object getDataModel(HttpServerExchange exchange) {
-        String repoPath = "C:\\Users\\HT-Dev\\Documents\\Projects\\hms";
+        String repoPath = VisualGitApplication.getInstance().getWorkRepo();
         List<GitCommitInfo> commitInfos = Optional.of(repoPath)
                 .map(GitLogFetcher::fetch)
                 .map(GitLogParser::parse)

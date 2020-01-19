@@ -1,5 +1,6 @@
 package com.sukaiyi.visualgit.charts.dotchart;
 
+import com.sukaiyi.visualgit.VisualGitApplication;
 import com.sukaiyi.visualgit.utils.IoUtils;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
 import io.undertow.server.HttpServerExchange;
@@ -36,7 +37,7 @@ public class FileChangeDetailHandler extends AbstractFreemakerHandler {
         BufferedReader reader = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            Process process = rt.exec("git show " + revision + " -- \"" + file + "\"", null, new File("C:\\Users\\HT-Dev\\Documents\\Projects\\hms"));
+            Process process = rt.exec("git show " + revision + " -- \"" + file + "\"", null, new File(VisualGitApplication.getInstance().getWorkRepo()));
             is = process.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
             String line;
