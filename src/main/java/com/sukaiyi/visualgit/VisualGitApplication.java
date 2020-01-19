@@ -18,9 +18,9 @@ import java.util.Optional;
 public class VisualGitApplication {
 
     private String workRepo = null;
-    private static VisualGitApplication INSTANCE = new VisualGitApplication();
+    private static final VisualGitApplication INSTANCE = new VisualGitApplication();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String workRepo = Optional.of(args)
                 .filter(e -> e.length > 0).map(e -> e[0])
                 .map(File::new)

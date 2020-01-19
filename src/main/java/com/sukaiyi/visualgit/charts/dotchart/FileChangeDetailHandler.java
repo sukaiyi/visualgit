@@ -7,6 +7,7 @@ import io.undertow.server.HttpServerExchange;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Slf4j
@@ -39,7 +40,7 @@ public class FileChangeDetailHandler extends AbstractFreemakerHandler {
             Runtime rt = Runtime.getRuntime();
             Process process = rt.exec("git show " + revision + " -- \"" + file + "\"", null, new File(VisualGitApplication.getInstance().getWorkRepo()));
             is = process.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(is));
+            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String line;
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null) {

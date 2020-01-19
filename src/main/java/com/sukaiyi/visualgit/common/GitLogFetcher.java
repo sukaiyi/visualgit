@@ -4,6 +4,7 @@ import com.sukaiyi.visualgit.utils.IoUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +43,7 @@ public class GitLogFetcher {
             Runtime rt = Runtime.getRuntime();
             Process process = rt.exec(GIT_LOG_COMMAND, null, new File(repoPath));
             is = process.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(is));
+            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String line;
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null) {
