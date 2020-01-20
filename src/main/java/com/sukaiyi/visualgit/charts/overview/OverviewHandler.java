@@ -7,6 +7,9 @@ import com.sukaiyi.visualgit.common.GitLogParser;
 import com.sukaiyi.visualgit.utils.DateUtils;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
 import io.undertow.server.HttpServerExchange;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -32,7 +35,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
 
         Map<String, Integer> fileTypeStatsMap = new HashMap<>();
         Set<String> fileSet = new HashSet<>();
-        Set<String> peopleSet = new HashSet<>();
+        Map<String, DeveloperStatInfo> developerStatInfoMap = new HashMap<>();
         long timestampStart = Long.MAX_VALUE;
         long timestampEnd = 0L;
         long totalLines = 0L;
@@ -40,6 +43,19 @@ public class OverviewHandler extends AbstractFreemakerHandler {
             List<GitCommitInfo.GitCommitFileInfo> fileInfos = Optional.of(commitInfo)
                     .map(GitCommitInfo::getFileInfos)
                     .orElse(Collections.emptyList());
+            DeveloperStatInfo developerStatInfo = Optional.of(commitInfo).map(GitCommitInfo::getAuthor).map(developerStatInfoMap::get).orElseGet(() -> {
+                DeveloperStatInfo info = new DeveloperStatInfo();
+                info.setName(commitInfo.getAuthor());
+                info.setEmail(commitInfo.getEmail());
+                info.setCommitNum(0);
+                info.setInsertions(0L);
+                info.setDeletions(0L);
+                return info;
+            });
+            developerStatInfoMap.put(commitInfo.getAuthor(), developerStatInfo);
+            developerStatInfo.setCommitNum(developerStatInfo.getCommitNum() + 1);
+            developerStatInfo.setInsertions(developerStatInfo.getInsertions() + commitInfo.getInsertions());
+            developerStatInfo.setDeletions(developerStatInfo.getDeletions() + commitInfo.getDeletions());
             for (GitCommitInfo.GitCommitFileInfo fileInfo : fileInfos) {
                 String path = fileInfo.getFile();
                 int lastIndexOfDot = path.lastIndexOf('.');
@@ -47,7 +63,6 @@ public class OverviewHandler extends AbstractFreemakerHandler {
                 fileTypeStatsMap.put(fileType, fileTypeStatsMap.getOrDefault(fileType, 0) + 1);
                 fileSet.add(path);
             }
-            peopleSet.add(commitInfo.getAuthor());
             timestampStart = timestampStart > commitInfo.getTimestamp() ? commitInfo.getTimestamp() : timestampStart;
             timestampEnd = timestampEnd < commitInfo.getTimestamp() ? commitInfo.getTimestamp() : timestampEnd;
             totalLines += commitInfo.getInsertions() - commitInfo.getDeletions();
@@ -62,11 +77,40 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         data.put("language", languageIterator.hasNext() ? languageIterator.next() : "");
         data.put("totalLines", totalLines);
         data.put("totalFiles", fileSet.size());
-        data.put("totalDevelopers", peopleSet.size());
-        data.put("developers", peopleSet);
+        data.put("totalDevelopers", developerStatInfoMap.size());
+        data.put("developers", developerStatInfoMap.keySet());
         data.put("across", (timestampEnd - timestampStart) / 1000 / 60 / 60 / 24);
         data.put("start", DateUtils.format(new Date(timestampStart), "yyyy-MM-dd"));
         data.put("end", DateUtils.format(new Date(timestampEnd), "yyyy-MM-dd"));
+        data.put("maintainer", Optional.of(developerStatInfoMap).map(this::maintainer).orElse(null));
+        data.put(
+                "rank",
+                developerStatInfoMap.values().stream()
+                        .sorted(Comparator.comparing(DeveloperStatInfo::getInsertions).reversed())
+                        .limit(10)
+                        .collect(Collectors.toList())
+        );
         return data;
+    }
+
+    private DeveloperStatInfo maintainer(Map<String, DeveloperStatInfo> developerStatInfoMap) {
+        return developerStatInfoMap.values().stream()
+                .max((info1, info2) -> {
+                    long v1 = info1.getCommitNum() * 50 + info1.getInsertions() * 30 + info1.getDeletions() * 20;
+                    long v2 = info2.getCommitNum() * 50 + info2.getInsertions() * 30 + info2.getDeletions() * 20;
+                    return v1 - v2 > 0 ? 1 : (v1 - v2 == 0 ? 0 : -1);
+                })
+                .orElse(null);
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeveloperStatInfo {
+        private String name;
+        private String email;
+        private Integer commitNum;
+        private Long insertions;
+        private Long deletions;
     }
 }
