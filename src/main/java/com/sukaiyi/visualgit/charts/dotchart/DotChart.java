@@ -58,7 +58,7 @@ public class DotChart implements Chart {
             }
         }
         return new DotChartModel(
-                "共 " + commitInfos.size() + " 个提交",
+                commitInfos.size(),
                 new ArrayList<>(data.keySet()),
                 data.entrySet().stream()
                         .collect(Collectors.toMap(Map.Entry::getKey, entry -> gson.toJson(entry.getValue()), (o, n) -> n, LinkedHashMap::new))
@@ -69,7 +69,7 @@ public class DotChart implements Chart {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DotChartModel {
-        private String title;
+        private Integer totalCommit;
         private List<String> authors;
         private Map<String, String> data;
     }

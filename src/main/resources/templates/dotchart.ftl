@@ -36,7 +36,7 @@
 
     option = {
         title: {
-            text: '${title}',
+            text: '共 ${totalCommit} 个提交',
             bottom: 0,
             textStyle: {
                 color: 'rgba(255, 255, 255, 0.3)'
