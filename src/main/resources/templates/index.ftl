@@ -33,6 +33,7 @@
                 <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交散点图</a></li>
                 <li src="totalLinesChart" tinge="default" class="nav-item"><a href="#">代码量变化图</a></li>
                 <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">提交日历</a></li>
+                <li src="filelist" tinge="default" class="nav-item"><a href="#">源文件</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -50,7 +51,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<iframe id="iframe" src="overview" scrolling="no" style="border: none" onload="resetIframeHeight()"
+<iframe id="iframe" src="overview" style="border: none" onload="resetIframeHeight()"
         width="100%"></iframe>
 <script type="text/javascript">
     $(".nav-item").click(function () {

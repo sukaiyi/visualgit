@@ -5,6 +5,7 @@ import com.sukaiyi.visualgit.charts.calendarchart.CommitOfDateHandler;
 import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
 import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
+import com.sukaiyi.visualgit.charts.filelist.FileListHandler;
 import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
 import com.sukaiyi.visualgit.charts.overview.OverviewHandler;
 import com.sukaiyi.visualgit.webhandler.StaticHandler;
@@ -45,6 +46,7 @@ public class VisualGitApplication {
                                 .match("/dotchart", new DotChartHandler())
                                 .match("/totalLinesChart", new TotalLinesChartHandler())
                                 .match("/calendarChart", new CalendarChartHandler())
+                                .match("/filelist", new FileListHandler())
                                 .match("/commitDetail", new CommitDetailHandler())
                                 .match("/commitOfDate", new CommitOfDateHandler())
                                 .match("/fileChangeDetail", new FileChangeDetailHandler())
