@@ -19,6 +19,22 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OverviewHandler extends AbstractFreemakerHandler {
 
+    private static final Map<String, String> FILE_TYPE_LANGUAGE_MAP = new HashMap<>();
+
+    static {
+        FILE_TYPE_LANGUAGE_MAP.put("java", "Java");
+        FILE_TYPE_LANGUAGE_MAP.put("cs", "C#");
+        FILE_TYPE_LANGUAGE_MAP.put("c", "C");
+        FILE_TYPE_LANGUAGE_MAP.put("cpp", "C++");
+        FILE_TYPE_LANGUAGE_MAP.put("py", "Python");
+        FILE_TYPE_LANGUAGE_MAP.put("php", "PHP");
+        FILE_TYPE_LANGUAGE_MAP.put("js", "JavaScript");
+        FILE_TYPE_LANGUAGE_MAP.put("ts", "TypeScript");
+        FILE_TYPE_LANGUAGE_MAP.put("html", "HTML");
+        FILE_TYPE_LANGUAGE_MAP.put("sh", "Shell");
+        FILE_TYPE_LANGUAGE_MAP.put("bat", "Bat");
+    }
+
     @Override
     protected String getTemplate(HttpServerExchange exchange) {
         return "overview.ftl";
@@ -75,7 +91,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         Map<String, Object> data = new HashMap<>();
         data.put("project", repoFile.getName());
         Iterator<String> languageIterator = fileTypeStatsMap.keySet().iterator();
-        data.put("language", languageIterator.hasNext() ? languageIterator.next() : "");
+        data.put("language", Optional.of(languageIterator).filter(Iterator::hasNext).map(Iterator::next).map(e -> FILE_TYPE_LANGUAGE_MAP.getOrDefault(e, e)).orElse(""));
         data.put("totalLines", totalLines);
         data.put("commits", commitInfos.size());
         data.put("totalFiles", fileSet.size());
@@ -100,7 +116,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
                 .max((info1, info2) -> {
                     long v1 = info1.getCommitNum() * 50 + info1.getInsertions() * 30 + info1.getDeletions() * 20;
                     long v2 = info2.getCommitNum() * 50 + info2.getInsertions() * 30 + info2.getDeletions() * 20;
-                    return v1 - v2 > 0 ? 1 : (v1 - v2 == 0 ? 0 : -1);
+                    return (int) Math.signum(v1 - v2);
                 })
                 .orElse(null);
     }
