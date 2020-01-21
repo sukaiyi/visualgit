@@ -104,7 +104,11 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         data.put(
                 "rank",
                 developerStatInfoMap.values().stream()
-                        .sorted(Comparator.comparing(DeveloperStatInfo::getCommitNum).reversed())
+                        .sorted(
+                                Comparator.comparing(DeveloperStatInfo::getCommitNum)
+                                        .thenComparing(DeveloperStatInfo::getPureLines)
+                                        .reversed()
+                        )
                         .limit(10)
                         .collect(Collectors.toList())
         );
