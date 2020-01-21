@@ -15,7 +15,7 @@
 <div style="height: 100%">
     <div id="main" style="width: 100%;height: 100%"></div>
     <!-- Modal -->
-    <div id="modal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             </div>

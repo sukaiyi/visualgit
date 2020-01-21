@@ -31,6 +31,8 @@
             <ul class="nav navbar-nav">
                 <li src="overview" tinge="default" class="nav-item active"><a href="#">总览</a></li>
                 <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交散点图</a></li>
+                <li src="totalLinesChart" tinge="default" class="nav-item"><a href="#">代码量变化图</a></li>
+                <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">提交日历</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

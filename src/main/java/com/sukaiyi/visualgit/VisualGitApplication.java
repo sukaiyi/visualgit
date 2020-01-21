@@ -1,8 +1,11 @@
 package com.sukaiyi.visualgit;
 
+import com.sukaiyi.visualgit.charts.calendarchart.CalendarChartHandler;
+import com.sukaiyi.visualgit.charts.calendarchart.CommitOfDateHandler;
 import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
 import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
+import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
 import com.sukaiyi.visualgit.charts.overview.OverviewHandler;
 import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
@@ -11,7 +14,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Optional;
 
 @Data
@@ -41,7 +43,10 @@ public class VisualGitApplication {
                                 .match("/index", new IndexHandler())
                                 .match("/overview", new OverviewHandler())
                                 .match("/dotchart", new DotChartHandler())
+                                .match("/totalLinesChart", new TotalLinesChartHandler())
+                                .match("/calendarChart", new CalendarChartHandler())
                                 .match("/commitDetail", new CommitDetailHandler())
+                                .match("/commitOfDate", new CommitOfDateHandler())
                                 .match("/fileChangeDetail", new FileChangeDetailHandler())
                                 .match("/static/.*", new StaticHandler())
                 ).build();
