@@ -30,9 +30,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1" style="padding-right: 0"></div>
-                    <div class="col-md-5" style="padding-right: 0">开发者</div>
-                    <div class="col-md-3" style="padding-right: 0">提交数</div>
-                    <div class="col-md-3" style="padding-right: 0">编辑行</div>
+                    <div class="col-md-5" style="padding-right: 0"><b>开发者</b></div>
+                    <div class="col-md-3" style="padding-right: 0"><b>提交数</b></div>
+                    <div class="col-md-3" style="padding-right: 0"><b>编辑行</b></div>
                 </div>
                 <#list rank as ra>
                     <div class="row">
