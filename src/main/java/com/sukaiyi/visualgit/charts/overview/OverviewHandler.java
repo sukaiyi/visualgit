@@ -56,6 +56,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
             developerStatInfo.setCommitNum(developerStatInfo.getCommitNum() + 1);
             developerStatInfo.setInsertions(developerStatInfo.getInsertions() + commitInfo.getInsertions());
             developerStatInfo.setDeletions(developerStatInfo.getDeletions() + commitInfo.getDeletions());
+            developerStatInfo.setPureLines(developerStatInfo.getInsertions() - developerStatInfo.getDeletions());
             for (GitCommitInfo.GitCommitFileInfo fileInfo : fileInfos) {
                 String path = fileInfo.getFile();
                 int lastIndexOfDot = path.lastIndexOf('.');
@@ -76,6 +77,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         Iterator<String> languageIterator = fileTypeStatsMap.keySet().iterator();
         data.put("language", languageIterator.hasNext() ? languageIterator.next() : "");
         data.put("totalLines", totalLines);
+        data.put("commits", commitInfos.size());
         data.put("totalFiles", fileSet.size());
         data.put("totalDevelopers", developerStatInfoMap.size());
         data.put("developers", developerStatInfoMap.keySet());
@@ -86,7 +88,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         data.put(
                 "rank",
                 developerStatInfoMap.values().stream()
-                        .sorted(Comparator.comparing(DeveloperStatInfo::getInsertions).reversed())
+                        .sorted(Comparator.comparing(DeveloperStatInfo::getPureLines).reversed())
                         .limit(10)
                         .collect(Collectors.toList())
         );
@@ -110,6 +112,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         private String name;
         private String email;
         private Integer commitNum;
+        private Long pureLines;
         private Long insertions;
         private Long deletions;
     }

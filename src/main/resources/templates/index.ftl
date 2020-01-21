@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li src="overview" tinge="default" class="nav-item active"><a href="#">总览</a></li>
-                <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交时序图</a></li>
+                <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交散点图</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

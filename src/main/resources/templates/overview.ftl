@@ -14,7 +14,7 @@
 </head>
 
 <body style="margin: 0">
-<div class="jumbotron">
+<div>
     <div class="container" style="text-align: center">
         <h1>${project}</h1>
         <span class="label label-default">${language}</span>
@@ -28,11 +28,18 @@
                     <span class="iconfont icon-rankinglist-fill"></span>
                     <span style="font-size: 24px;">贡献榜</span>
                 </div>
+                <div class="row">
+                    <div class="col-md-1" style="padding-right: 0"></div>
+                    <div class="col-md-5" style="padding-right: 0">开发者</div>
+                    <div class="col-md-3" style="padding-right: 0">提交数</div>
+                    <div class="col-md-3" style="padding-right: 0">编辑行</div>
+                </div>
                 <#list rank as ra>
                     <div class="row">
-                        <div class="col-md-6" style="padding-right: 0">${ra.name}</div>
-                        <div class="col-md-3" style="padding-right: 0">+${ra.insertions}</div>
-                        <div class="col-md-3" style="padding-right: 0">-${ra.deletions}</div>
+                        <div class="col-md-1" style="padding-right: 0">${ra_index + 1}</div>
+                        <div class="col-md-5" style="padding-right: 0">${ra.name}</div>
+                        <div class="col-md-3" style="padding-right: 0">${ra.commitNum}</div>
+                        <div class="col-md-3" style="padding-right: 0">${ra.pureLines}</div>
                     </div>
                 </#list>
             </div>
@@ -55,7 +62,7 @@
                     <span class="iconfont icon-code"></span>
                     <span style="font-size: 24px;">${totalLines} 行</span>
                 </div>
-                <div style="color: grey; text-align: right">累计代码量</div>
+                <div style="color: grey; text-align: right">累计编辑代码</div>
             </div>
         </div>
         <div class="panel panel-default card" style="background:#40E0D0">
@@ -70,10 +77,10 @@
         <div class="panel panel-default card" style="background:#EEE8AA">
             <div class="panel-body">
                 <div style="display: flex; justify-content: space-between; align-content: center;">
-                    <span class="iconfont icon-ontimeshipment"></span>
-                    <span style="font-size: 24px;">${across} 天</span>
+                    <span class="iconfont icon-default-template-fill"></span>
+                    <span style="font-size: 24px;">${commits}</span>
                 </div>
-                <div style="color: grey; text-align: right">${start} ~ ${end}</div>
+                <div style="color: grey; text-align: right">提交数</div>
             </div>
         </div>
     </div>
@@ -94,6 +101,15 @@
                     <span style="font-size: 24px;">${totalDevelopers} 位</span>
                 </div>
                 <div style="color: grey; text-align: right">涉及开发者</div>
+            </div>
+        </div>
+        <div class="panel panel-default card" style="background:#EEE8AA">
+            <div class="panel-body">
+                <div style="display: flex; justify-content: space-between; align-content: center;">
+                    <span class="iconfont icon-ontimeshipment"></span>
+                    <span style="font-size: 24px;">${across} 天</span>
+                </div>
+                <div style="color: grey; text-align: right">${start} ~ ${end}</div>
             </div>
         </div>
     </div>
