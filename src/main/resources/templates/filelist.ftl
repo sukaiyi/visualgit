@@ -22,7 +22,7 @@
             <div class="list-group">
                 <#list fileList as file>
                     <a href="filelist?path=${file.path}" class="list-group-item">
-                        <span class="iconfont <#if file.isFile==false>-folder-fill</#if><#if file.isFile>feeds-fill</#if>"></span>
+                        <span class="iconfont icon<#if file.isFile==false>-folder<#else>-feeds</#if>"></span>
                         ${file.name}
                     </a>
                 </#list>
@@ -38,6 +38,10 @@
 <style type="text/css">
     .iconfont {
         font-size: 24px;
+    }
+
+    .list-group-item {
+        padding: 5px 8px;
     }
 </style>
 </body>
