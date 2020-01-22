@@ -34,6 +34,7 @@
                 <li src="totalLinesChart" tinge="default" class="nav-item"><a href="#">代码量变化图</a></li>
                 <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">提交日历</a></li>
                 <li src="filelist" tinge="default" class="nav-item"><a href="#">源文件</a></li>
+                <li src="rela" tinge="default" class="nav-item"><a href="#">提交关系图</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

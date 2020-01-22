@@ -17,6 +17,10 @@ public class GitCommitInfo {
      */
     private String revision;
     /**
+     * 父节点
+     */
+    private List<String> parents;
+    /**
      * 提交时间戳
      */
     private Long timestamp;

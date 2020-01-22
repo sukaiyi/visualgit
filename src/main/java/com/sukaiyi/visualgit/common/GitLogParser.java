@@ -1,6 +1,8 @@
 package com.sukaiyi.visualgit.common;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sukaiyi.visualgit.utils.MD5Utils;
 
 import java.util.*;
@@ -32,10 +34,8 @@ public class GitLogParser {
             String json = entry.getKey();
             // 先转义 title 和 content 中的特殊字符
             json = handleQuota(json);
-            GitCommitInfo commitInfo = GSON.fromJson(json, GitCommitInfo.class);
-            commitInfo.setFileCount(0L);
-            commitInfo.setInsertions(0L);
-            commitInfo.setDeletions(0L);
+            JsonObject jsonObject = (JsonObject) new JsonParser().parse(json);
+            GitCommitInfo commitInfo = mapToGitCommitInfo(jsonObject);
             String detail = entry.getValue();
             String[] detailParts = detail.split("\n");
             for (String detailPart : detailParts) {
@@ -63,6 +63,21 @@ public class GitLogParser {
         }
         CACHE.put(cacheKey, commitInfos);
         return commitInfos;
+    }
+
+    private static GitCommitInfo mapToGitCommitInfo(JsonObject jsonObject) {
+        GitCommitInfo info = new GitCommitInfo();
+        info.setRevision(jsonObject.get("revision").getAsString());
+        info.setParents(Arrays.stream(jsonObject.get("parents").getAsString().split(" ")).filter(e -> !e.isEmpty()).collect(Collectors.toList()));
+        info.setTimestamp(jsonObject.get("timestamp").getAsLong());
+        info.setAuthor(jsonObject.get("author").getAsString());
+        info.setEmail(jsonObject.get("email").getAsString());
+        info.setTitle(jsonObject.get("title").getAsString());
+        info.setContent(jsonObject.get("content").getAsString());
+        info.setFileCount(0L);
+        info.setInsertions(0L);
+        info.setDeletions(0L);
+        return info;
     }
 
     private static String handleQuota(String json) {
