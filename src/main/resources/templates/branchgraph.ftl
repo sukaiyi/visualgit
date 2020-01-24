@@ -12,7 +12,7 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
 </head>
-<body style="margin: 0px;height: 100%">
+<body style="margin: 0;height: 100%">
 <div style="height: 100%">
     <div id="graph-container" style="width: 100%;height: 100%"></div>
     <!-- Modal -->
@@ -25,26 +25,8 @@
 </div>
 <script type="text/javascript">
     const graphContainer = document.getElementById("graph-container");
-
-    // Instantiate the graph.
     const gitgraph = GitgraphJS.createGitgraph(graphContainer);
-
-    const master = gitgraph.branch("master");
-    master.commit("Initial commit");
-
-    const develop = gitgraph.branch("develop");
-    develop.commit("Add TypeScript");
-
-    const aFeature = gitgraph.branch("a-feature");
-    aFeature
-        .commit("Make it work")
-        .commit("Make it right")
-        .commit("Make it fast");
-
-    develop.merge(aFeature);
-    develop.commit("Prepare v1");
-
-    master.merge(develop).tag("v1.0.0");
+    gitgraph.import(${data});
 </script>
 </body>
 </html>
