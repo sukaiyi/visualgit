@@ -23,7 +23,7 @@ public class DotChart implements Chart {
         //     [timestamp, insertions, fileCount, author, email, revision, title],...
         // ]
         Map<String, List<GitCommitInfo>> infoGroupByAuthor = commitInfos.stream()
-                .collect(Collectors.groupingBy(GitCommitInfo::getAuthor))
+                .collect(Collectors.groupingBy(e -> e.getCommitter().getName()))
                 .entrySet().stream()
                 .sorted((en1, en2) -> en2.getValue().size() - en1.getValue().size())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (o, n) -> n, LinkedHashMap::new));
@@ -43,14 +43,14 @@ public class DotChart implements Chart {
                 data.put(author, dataThisAuthor);
             }
             for (GitCommitInfo commit : infoThisAuthor) {
-                String title = Optional.ofNullable(commit.getTitle()).orElse("");
+                String title = Optional.ofNullable(commit.getSubject()).orElse("");
                 List<Object> dataThisCommit = Arrays.asList(
-                        commit.getTimestamp(),
+                        commit.getCommitter().getTimestamp(),
                         Optional.ofNullable(commit.getInsertions()).orElse(0L),
-                        Optional.ofNullable(commit.getFileCount()).orElse(0L),
-                        Optional.ofNullable(commit.getAuthor()).orElse(""),
-                        Optional.ofNullable(commit.getEmail()).orElse(""),
-                        Optional.ofNullable(commit.getRevision()).orElse(""),
+                        Optional.ofNullable(commit.getStats()).map(List::size).orElse(0),
+                        Optional.ofNullable(commit.getCommitter()).map(GitCommitInfo.GitCommitDeveloperInfo::getName).orElse(""),
+                        Optional.ofNullable(commit.getCommitter()).map(GitCommitInfo.GitCommitDeveloperInfo::getEmail).orElse(""),
+                        Optional.ofNullable(commit.getHash()).orElse(""),
                         title.length() > 30 ? title.substring(0, 30) + "..." : title
                 );
                 assert dataThisAuthor != null;

@@ -22,13 +22,13 @@ public class RelationshipChart implements Chart {
             GitCommitInfo thisInfo = commitInfos.get(i);
             // 添加点
             Dot dot = new Dot();
-            dot.setId(thisInfo.getRevision());
+            dot.setId(thisInfo.getHash());
             dot.setX(-1); // -1表示节点的X坐标还未调整
             dot.setY(i * 20);
             dot.setFixed(i == 0 || i == commitInfos.size() - 1);
             dots.add(dot);
             // 添加边
-            thisInfo.getParents().forEach(parent -> edges.add(new Edge(parent, thisInfo.getRevision())));
+            thisInfo.getParents().forEach(parent -> edges.add(new Edge(parent, thisInfo.getHash())));
         }
         Map<String, Dot> dotIdMap = dots.stream().collect(Collectors.toMap(Dot::getId, e -> e));
         Map<String, List<String>> inDu = new HashMap<>(dots.size()); // 入度
@@ -43,7 +43,7 @@ public class RelationshipChart implements Chart {
         for (int i = commitInfos.size() - 1; i >= 0; i--) {
             GitCommitInfo thisInfo = commitInfos.get(i);
             if (i == commitInfos.size() - 1) { // 最后一个点的X坐标直接初始化为0
-                Optional.of(thisInfo).map(GitCommitInfo::getRevision).map(dotIdMap::get).ifPresent(dot -> dot.setX(0));
+                Optional.of(thisInfo).map(GitCommitInfo::getHash).map(dotIdMap::get).ifPresent(dot -> dot.setX(0));
                 continue;
             }
             List<String> parents = thisInfo.getParents();
@@ -54,7 +54,7 @@ public class RelationshipChart implements Chart {
                 // 父节点的所有子节点最大 X 坐标
                 int maxX = outDu.get(parent).stream().map(dotIdMap::get).mapToInt(Dot::getX).max().orElse(-1);
                 int thisX = maxX == -1 ? parentDot.getX() : maxX + 20;
-                Optional.of(thisInfo).map(GitCommitInfo::getRevision).map(dotIdMap::get).ifPresent(dot -> dot.setX(thisX));
+                Optional.of(thisInfo).map(GitCommitInfo::getHash).map(dotIdMap::get).ifPresent(dot -> dot.setX(thisX));
             }
         }
         return new Data(dots, edges);

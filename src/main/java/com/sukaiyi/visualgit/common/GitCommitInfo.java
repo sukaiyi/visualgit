@@ -12,69 +12,43 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class GitCommitInfo {
-    /**
-     * revision
-     */
-    private String revision;
-    /**
-     * 父节点
-     */
+    private List<String> refs;
+    private String hash;
+    private String hashAbbrev;
+    private String tree;
+    private String treeAbbrev;
     private List<String> parents;
-    /**
-     * 提交时间戳
-     */
-    private Long timestamp;
-    /**
-     * 作者
-     */
-    private String author;
-    /**
-     * 作者邮箱
-     */
-    private String email;
-    /**
-     * 提交标题，（第一行）
-     */
-    private String title;
-    /**
-     * 提交内容，（除第一行）
-     */
-    private String content;
-
-    /**
-     * 影响的文件数量
-     */
-    private Long fileCount;
-    /**
-     * 插入行
-     */
+    private List<String> parentsAbbrev;
+    private GitCommitDeveloperInfo author;
+    private GitCommitDeveloperInfo committer;
+    private String subject;
+    private String body;
+    private String notes;
     private Long insertions;
-    /**
-     * 删除行
-     */
     private Long deletions;
-
     /**
      * 该提交的文件信息
      */
-    private List<GitCommitFileInfo> fileInfos;
+    private List<GitCommitFileInfo> stats;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class GitCommitFileInfo {
-        /**
-         * 文件路径
-         */
         private String file;
-        /**
-         * 插入行
-         */
         private Long insertions;
-        /**
-         * 删除行
-         */
         private Long deletions;
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class GitCommitDeveloperInfo {
+        private String name;
+        private String email;
+        private Long timestamp;
+    }
+
 }

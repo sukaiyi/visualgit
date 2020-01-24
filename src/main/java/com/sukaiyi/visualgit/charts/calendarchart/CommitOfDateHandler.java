@@ -42,8 +42,8 @@ public class CommitOfDateHandler extends AbstractFreemakerHandler {
         long start = startOfDate.getTime();
         long end = start + 24 * 60 * 60 * 1000;
         List<GitCommitInfo> infos = commitInfos.stream()
-                .filter(info -> info.getTimestamp() >= start && info.getTimestamp() < end)
-                .sorted(Comparator.comparing(GitCommitInfo::getTimestamp))
+                .filter(info -> info.getCommitter().getTimestamp() >= start && info.getCommitter().getTimestamp() < end)
+                .sorted(Comparator.comparing(info -> info.getCommitter().getTimestamp()))
                 .collect(Collectors.toList());
 
         Map<String, Object> data = new HashMap<>();

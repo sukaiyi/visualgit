@@ -57,18 +57,22 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         long totalLines = 0L;
         for (GitCommitInfo commitInfo : commitInfos) {
             List<GitCommitInfo.GitCommitFileInfo> fileInfos = Optional.of(commitInfo)
-                    .map(GitCommitInfo::getFileInfos)
+                    .map(GitCommitInfo::getStats)
                     .orElse(Collections.emptyList());
-            DeveloperStatInfo developerStatInfo = Optional.of(commitInfo).map(GitCommitInfo::getAuthor).map(developerStatInfoMap::get).orElseGet(() -> {
-                DeveloperStatInfo info = new DeveloperStatInfo();
-                info.setName(commitInfo.getAuthor());
-                info.setEmail(commitInfo.getEmail());
-                info.setCommitNum(0);
-                info.setInsertions(0L);
-                info.setDeletions(0L);
-                return info;
-            });
-            developerStatInfoMap.put(commitInfo.getAuthor(), developerStatInfo);
+            DeveloperStatInfo developerStatInfo = Optional.of(commitInfo)
+                    .map(GitCommitInfo::getAuthor)
+                    .map(GitCommitInfo.GitCommitDeveloperInfo::getName)
+                    .map(developerStatInfoMap::get)
+                    .orElseGet(() -> {
+                        DeveloperStatInfo info = new DeveloperStatInfo();
+                        info.setName(commitInfo.getCommitter().getName());
+                        info.setEmail(commitInfo.getCommitter().getEmail());
+                        info.setCommitNum(0);
+                        info.setInsertions(0L);
+                        info.setDeletions(0L);
+                        return info;
+                    });
+            developerStatInfoMap.put(commitInfo.getCommitter().getName(), developerStatInfo);
             developerStatInfo.setCommitNum(developerStatInfo.getCommitNum() + 1);
             developerStatInfo.setInsertions(developerStatInfo.getInsertions() + commitInfo.getInsertions());
             developerStatInfo.setDeletions(developerStatInfo.getDeletions() + commitInfo.getDeletions());
@@ -80,8 +84,9 @@ public class OverviewHandler extends AbstractFreemakerHandler {
                 fileTypeStatsMap.put(fileType, fileTypeStatsMap.getOrDefault(fileType, 0) + 1);
                 fileSet.add(path);
             }
-            timestampStart = timestampStart > commitInfo.getTimestamp() ? commitInfo.getTimestamp() : timestampStart;
-            timestampEnd = timestampEnd < commitInfo.getTimestamp() ? commitInfo.getTimestamp() : timestampEnd;
+            long commitTime = commitInfo.getCommitter().getTimestamp();
+            timestampStart = Math.min(timestampStart, commitTime);
+            timestampEnd = Math.max(timestampEnd, commitTime);
             totalLines += commitInfo.getInsertions() - commitInfo.getDeletions();
         }
         fileTypeStatsMap = fileTypeStatsMap.entrySet().stream()

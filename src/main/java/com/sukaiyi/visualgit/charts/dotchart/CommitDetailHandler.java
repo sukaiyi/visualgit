@@ -20,9 +20,9 @@ public class CommitDetailHandler extends AbstractFreemakerHandler {
 
     @Override
     protected Object getDataModel(HttpServerExchange exchange) {
-        String revision = Optional.of(exchange)
+        String hash = Optional.of(exchange)
                 .map(HttpServerExchange::getQueryParameters)
-                .map(map -> map.get("revision"))
+                .map(map -> map.get("hash"))
                 .filter(deque -> !deque.isEmpty())
                 .map(Deque::poll)
                 .orElse(null);
@@ -33,9 +33,9 @@ public class CommitDetailHandler extends AbstractFreemakerHandler {
                 .map(GitLogParser::parse)
                 .orElse(Collections.emptyList());
 
-        return commitInfos.stream().filter(e -> Objects.equals(e.getRevision(), revision)).findFirst().orElseGet(() -> {
+        return commitInfos.stream().filter(e -> Objects.equals(e.getHash(), hash)).findFirst().orElseGet(() -> {
             GitCommitInfo defaultValue = new GitCommitInfo();
-            defaultValue.setRevision(revision);
+            defaultValue.setHash(hash);
             return defaultValue;
         });
     }

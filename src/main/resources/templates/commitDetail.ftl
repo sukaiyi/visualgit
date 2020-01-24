@@ -16,35 +16,35 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title">${revision}</h4>
+    <h4 class="modal-title">${hash}</h4>
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-2"><p class="text-right">Revision:</p></div>
-        <div class="col-md-10" style="padding-left: 0">${revision}</div>
+        <div class="col-md-2"><p class="text-right">Hash:</p></div>
+        <div class="col-md-10" style="padding-left: 0">${hash}</div>
     </div>
     <div class="row">
         <div class="col-md-2"><p class="text-right">提交人:</p></div>
-        <div class="col-md-10" style="padding-left: 0"><span class="label label-default">${author}</span> ${email}</div>
+        <div class="col-md-10" style="padding-left: 0"><span class="label label-default">${committer.name}</span> ${committer.email}</div>
     </div>
     <div class="row">
         <div class="col-md-2"><p class="text-right">提交时间:</p></div>
         <div class="col-md-10"
-             style="padding-left: 0">${timestamp?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')}</div>
+             style="padding-left: 0">${committer.timestamp?number_to_datetime?string('yyyy-MM-dd HH:mm:ss')}</div>
     </div>
     <div class="row">
         <div class="col-md-2"><p class="text-right">影响文件:</p></div>
-        <div class="col-md-10" style="padding-left: 0">${fileCount} 新增${insertions}行, 删除${deletions}行</div>
+        <div class="col-md-10" style="padding-left: 0">${stats?size} 新增${insertions}行, 删除${deletions}行</div>
     </div>
     <div class="row">
         <div class="col-md-2"><p class="text-right">提交内容:</p></div>
-        <div class="col-md-10" style="padding-left: 0">${title}${content}</div>
+        <div class="col-md-10" style="padding-left: 0">${subject}${body}</div>
     </div>
 
     <#assign fileList = ""/>
-    <#list fileInfos as info>
+    <#list stats as info>
         <#assign thisFile = info.file + ", +" + info.insertions + ", -" + info.deletions/>
-        <#assign fileList = fileList + "\n" + "<a href='fileChangeDetail?revision=${revision}&file=${info.file}' target='_blank'>${thisFile}</a>"/>
+        <#assign fileList = fileList + "\n" + "<a href='fileChangeDetail?hash=${hash}&file=${info.file}' target='_blank'>${thisFile}</a>"/>
     </#list>
     <pre style="max-height: 400px">${fileList}</pre>
 </div>

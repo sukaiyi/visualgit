@@ -25,10 +25,10 @@ public class CalendarChart implements Chart {
     @Override
     public Object data(List<GitCommitInfo> commitInfos) {
         if (author != null) {
-            commitInfos = commitInfos.stream().filter(info -> Objects.equals(info.getAuthor(), author)).collect(Collectors.toList());
+            commitInfos = commitInfos.stream().filter(info -> Objects.equals(info.getCommitter().getName(), author)).collect(Collectors.toList());
         }
         Map<String, List<GitCommitInfo>> groupedByDate = commitInfos.stream()
-                .collect(Collectors.groupingBy(info -> DateUtils.format(new Date(info.getTimestamp()), "yyyy-MM-dd")));
+                .collect(Collectors.groupingBy(info -> DateUtils.format(new Date(info.getCommitter().getTimestamp()), "yyyy-MM-dd")));
         List<List<Object>> data = groupedByDate.entrySet().stream().map(entry -> Arrays.<Object>asList(entry.getKey(), entry.getValue().size())).collect(Collectors.toList());
 
         List<String> orderedDate = groupedByDate.keySet().stream().sorted().collect(Collectors.toList());

@@ -18,16 +18,16 @@ public class TotalLinesChart implements Chart {
     @Override
     public Object data(List<GitCommitInfo> commitInfos) {
         List<List<Object>> data = commitInfos.stream()
-                .sorted(Comparator.comparingLong(GitCommitInfo::getTimestamp))
+                .sorted(Comparator.comparingLong(info -> info.getCommitter().getTimestamp()))
                 .map(info -> {
-                    String title = Optional.ofNullable(info.getTitle()).orElse("");
+                    String title = Optional.ofNullable(info.getSubject()).orElse("");
                     return Arrays.<Object>asList(
-                            info.getTimestamp(),
+                            info.getCommitter().getTimestamp(),
                             info.getInsertions() - info.getDeletions(),
-                            Optional.ofNullable(info.getFileCount()).orElse(0L),
-                            Optional.ofNullable(info.getAuthor()).orElse(""),
-                            Optional.ofNullable(info.getEmail()).orElse(""),
-                            Optional.ofNullable(info.getRevision()).orElse(""),
+                            Optional.ofNullable(info.getStats()).map(List::size).orElse(0),
+                            Optional.ofNullable(info.getCommitter()).map(GitCommitInfo.GitCommitDeveloperInfo::getName).orElse(""),
+                            Optional.ofNullable(info.getCommitter()).map(GitCommitInfo.GitCommitDeveloperInfo::getEmail).orElse(""),
+                            Optional.ofNullable(info.getHash()).orElse(""),
                             title.length() > 30 ? title.substring(0, 30) + "..." : title
                     );
                 })

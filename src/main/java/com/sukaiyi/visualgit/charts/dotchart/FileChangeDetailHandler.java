@@ -23,8 +23,8 @@ public class FileChangeDetailHandler extends AbstractFreemakerHandler {
         Map<String, Deque<String>> params = Optional.of(exchange)
                 .map(HttpServerExchange::getQueryParameters)
                 .orElse(Collections.emptyMap());
-        String revision = Optional.of(params)
-                .map(map -> map.get("revision"))
+        String hash = Optional.of(params)
+                .map(map -> map.get("hash"))
                 .filter(deque -> !deque.isEmpty())
                 .map(Deque::poll)
                 .orElse(null);
@@ -38,7 +38,7 @@ public class FileChangeDetailHandler extends AbstractFreemakerHandler {
         BufferedReader reader = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            Process process = rt.exec("git show " + revision + " -- \"" + file + "\"", null, new File(VisualGitApplication.getInstance().getWorkRepo()));
+            Process process = rt.exec("git show " + hash + " -- \"" + file + "\"", null, new File(VisualGitApplication.getInstance().getWorkRepo()));
             is = process.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String line;
@@ -48,7 +48,7 @@ public class FileChangeDetailHandler extends AbstractFreemakerHandler {
             }
             Map<String, String> data = new HashMap<>();
             data.put("file", file);
-            data.put("revision", revision);
+            data.put("hash", hash);
             data.put("data", sb.toString().replace("<", "&lt;").replace(">", "&gt;"));
             return data;
         } catch (IOException e) {

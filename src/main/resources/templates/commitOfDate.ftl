@@ -19,8 +19,8 @@
                 <div class="panel-heading">${date?number_to_datetime?string("yyyy年MM月dd日")}的提交</div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-2" style="padding-right: 0"><b>Revision</b></div>
-                        <div class="col-md-1" style="padding-right: 0"><b>Author</b></div>
+                        <div class="col-md-2" style="padding-right: 0"><b>Hash</b></div>
+                        <div class="col-md-1" style="padding-right: 0"><b>Committer</b></div>
                         <div class="col-md-1" style="padding-right: 0"><b>Time</b></div>
                         <div class="col-md-1" style="padding-right: 0"><b>Insertions</b></div>
                         <div class="col-md-1" style="padding-right: 0"><b>Deletions</b></div>
@@ -30,16 +30,16 @@
                         <div class="row">
                             <div class="col-md-2" style="padding-right: 0">
                                 <a href="javascript:void(0);"
-                                   onclick="$('#modal').modal({remote: 'commitDetail?revision=${info.revision}'});">
-                                    ${info.revision?substring(0, 12)}
+                                   onclick="$('#modal').modal({remote: 'commitDetail?hash=${info.hash}'});">
+                                    ${info.hash?substring(0, 12)}
                                 </a>
                             </div>
-                            <div class="col-md-1" style="padding-right: 0">${info.author}</div>
+                            <div class="col-md-1" style="padding-right: 0">${info.committer.name}</div>
                             <div class="col-md-1"
-                                 style="padding-right: 0">${info.timestamp?number_to_datetime?string("HH:mm:ss")}</div>
+                                 style="padding-right: 0">${info.committer.timestamp?number_to_datetime?string("HH:mm:ss")}</div>
                             <div class="col-md-1" style="padding-right: 0">${info.insertions}</div>
                             <div class="col-md-1" style="padding-right: 0">${info.deletions}</div>
-                            <div class="col-md-6" style="padding-right: 0">${info.title}</div>
+                            <div class="col-md-6" style="padding-right: 0">${info.subject}</div>
                         </div>
                     </#list>
                 </div>

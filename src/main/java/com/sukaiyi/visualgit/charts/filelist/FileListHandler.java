@@ -69,9 +69,9 @@ public class FileListHandler extends AbstractFreemakerHandler {
             }
         }
         if (path.length() > 0) {
-            int indexOf = path.indexOf('/');
-            indexOf = Math.max(indexOf, 0);
-            fileInfos.add(new FileInfo("..", path.substring(0, indexOf), false));
+            int lastIndexOf = path.lastIndexOf('/');
+            lastIndexOf = Math.max(lastIndexOf, 0);
+            fileInfos.add(new FileInfo("..", path.substring(0, lastIndexOf), false));
         }
 
         map.put("path", path);

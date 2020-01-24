@@ -37,7 +37,7 @@
                     + '<span style="font-size: 18px;display: block">' + value[3] + '</span>'
                     + '<span>' + value[4] + '</span>'
                     + '</div>'
-                    + 'Revision：' + value[5] + '<br>'
+                    + 'Hash：' + value[5] + '<br>'
                     + '   Notes：' + value[6] + '<br>'
                     + '   代码行：' + value[1] + '<br>'
                     + ' 涉及文件：' + value[2] + '<br>'
@@ -96,7 +96,7 @@
     myChart.setOption(option);
     myChart.on('click', function (param) {
         var data = param.data;
-        $('#modal').modal({remote: "commitDetail?revision=" + data[5]});
+        $('#modal').modal({remote: "commitDetail?hash=" + data[5]});
     });
     window.addEventListener("resize", function () {
         myChart.resize();
