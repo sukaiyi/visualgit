@@ -31,8 +31,8 @@
             <ul class="nav navbar-nav">
                 <li src="overview" tinge="default" class="nav-item active"><a href="#">总览</a></li>
                 <li src="dotchart" tinge="inverse" class="nav-item"><a href="#">提交散点图</a></li>
-                <li src="totalLinesChart" tinge="default" class="nav-item"><a href="#">代码量变化图</a></li>
-                <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">提交日历</a></li>
+                <li src="totalLinesChart" tinge="default" class="nav-item"><a href="#">代码量</a></li>
+                <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">贡献日历</a></li>
                 <li src="filelist" tinge="default" class="nav-item"><a href="#">源文件</a></li>
                 <li src="branchgraph" tinge="default" class="nav-item"><a href="#">分支图</a></li>
             </ul>

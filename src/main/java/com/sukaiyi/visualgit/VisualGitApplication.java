@@ -1,16 +1,16 @@
 package com.sukaiyi.visualgit;
 
+import com.sukaiyi.visualgit.charts.branchgraph.BranchGraphHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CalendarChartHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CommitOfDateHandler;
 import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
 import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
 import com.sukaiyi.visualgit.charts.filelist.FileListHandler;
-import com.sukaiyi.visualgit.charts.branchgraph.BranchGraphHandler;
-import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
 import com.sukaiyi.visualgit.charts.overview.OverviewHandler;
-import com.sukaiyi.visualgit.webhandler.StaticHandler;
+import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
+import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import io.undertow.Undertow;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

@@ -11,9 +11,9 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 </head>
-<body style="margin: 0px;height: 100%">
+<body style="margin: 0;height: 100%;background: #404a59">
 <div style="height: 100%">
-    <div id="main" style="width: 100%;height: 100%"></div>
+    <div id="main" style="width: ${(segments?size*250 + 50)?c}px;height: 800px;background: #404a59"></div>
     <!-- Modal -->
     <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -55,7 +55,7 @@
                     show: true,
                     lineStyle: {
                         color: '#000',
-                        width: 4,
+                        width: 2,
                         type: 'solid'
                     }
                 },
@@ -67,7 +67,7 @@
                 },
                 monthLabel: {
                     nameMap: 'cn',
-                    margin: 10
+                    margin: 10,
                 },
                 dayLabel: {
                     firstDay: 1,
