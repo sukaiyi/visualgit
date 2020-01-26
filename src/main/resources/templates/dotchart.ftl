@@ -122,13 +122,13 @@
             {
                 type: 'slider',
                 xAxisIndex: [0],
-                start: 0,
+                start: Math.max(100 - 20000 /${totalCommit?c}),
                 end: 100,
                 bottom: "-10",
                 showDetail: false,
                 borderColor: 'rgba(167, 183, 204, 0.0)'
             },
-            {type: 'inside', xAxisIndex: [0], start: 0, end: 100}
+            {type: 'inside', xAxisIndex: [0], start: Math.max(100 - 20000 /${totalCommit?c}), end: 100}
         ],
         visualMap: [
             {
