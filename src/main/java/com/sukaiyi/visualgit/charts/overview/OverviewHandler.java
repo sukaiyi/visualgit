@@ -123,8 +123,8 @@ public class OverviewHandler extends AbstractFreemakerHandler {
     private DeveloperStatInfo maintainer(Map<String, DeveloperStatInfo> developerStatInfoMap) {
         return developerStatInfoMap.values().stream()
                 .max((info1, info2) -> {
-                    long v1 = info1.getCommitNum() * 50 + info1.getInsertions() * 30 + info1.getDeletions() * 20;
-                    long v2 = info2.getCommitNum() * 50 + info2.getInsertions() * 30 + info2.getDeletions() * 20;
+                    long v1 = info1.getCommitNum() * 100 + info1.getInsertions() + info1.getDeletions();
+                    long v2 = info2.getCommitNum() * 100 + info2.getInsertions() + info2.getDeletions();
                     return (int) Math.signum(v1 - v2);
                 })
                 .orElse(null);
