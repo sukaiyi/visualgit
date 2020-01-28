@@ -3,6 +3,7 @@ package com.sukaiyi.visualgit;
 import com.sukaiyi.visualgit.charts.branchgraph.BranchGraphHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CalendarChartHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CommitOfDateHandler;
+import com.sukaiyi.visualgit.charts.divisionrelachart.DivisionRelaChartHandler;
 import com.sukaiyi.visualgit.charts.dotchart.CommitDetailHandler;
 import com.sukaiyi.visualgit.charts.dotchart.DotChartHandler;
 import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
@@ -48,6 +49,7 @@ public class VisualGitApplication {
                                 .match("/totalLinesChart", new TotalLinesChartHandler())
                                 .match("/calendarChart", new CalendarChartHandler())
                                 .match("/branchgraph", new BranchGraphHandler())
+                                .match("/divisionrela", new DivisionRelaChartHandler())
                                 .match("/filelist", new FileListHandler())
                                 .match("/commitDetail", new CommitDetailHandler())
                                 .match("/commitOfDate", new CommitOfDateHandler())

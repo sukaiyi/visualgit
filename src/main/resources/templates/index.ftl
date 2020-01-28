@@ -35,6 +35,7 @@
                 <li src="calendarChart" tinge="inverse" class="nav-item"><a href="#">贡献日历</a></li>
                 <li src="filelist" tinge="default" class="nav-item"><a href="#">源文件</a></li>
                 <li src="branchgraph" tinge="default" class="nav-item"><a href="#">分支图</a></li>
+                <li src="divisionrela" tinge="default" class="nav-item"><a href="#">分工关系图</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
