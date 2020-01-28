@@ -14,13 +14,6 @@
 <body style="margin: 0;height: 100%;background: #404a59">
 <div style="height: 100%">
     <div id="main" style="width: ${(segments?size*250 + 50)?c}px;height: 800px;background: #404a59"></div>
-    <!-- Modal -->
-    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            </div>
-        </div>
-    </div>
 </div>
 <script type="text/javascript">
 
