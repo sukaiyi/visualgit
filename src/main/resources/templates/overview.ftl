@@ -103,13 +103,14 @@
                 <div style="color: grey; text-align: right">涉及开发者</div>
             </div>
         </div>
-        <div class="panel panel-default card" style="background:#EEE8AA">
+        <div class="panel panel-default" style="background:#EEE8AA;display: inline-block;width: 250px;text-align: left;">
             <div class="panel-body">
                 <div style="display: flex; justify-content: space-between; align-content: center;">
                     <span class="iconfont icon-ontimeshipment"></span>
-                    <span style="font-size: 24px;">${across} 天</span>
+                    <span style="font-size: 24px;">${activeDays}/${across} 天</span>
                 </div>
-                <div style="color: grey; text-align: right">${start} ~ ${end}</div>
+                <div style="color: grey; text-align: right"></div>
+                <div style="color: grey; text-align: right">活跃天/天(${start} ~ ${end})    </div>
             </div>
         </div>
     </div>
@@ -119,7 +120,7 @@
 <style type="text/css">
     .card {
         display: inline-block;
-        width: 200px;
+        width: 220px;
         text-align: left;
     }
 

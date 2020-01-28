@@ -6,6 +6,7 @@ import com.sukaiyi.visualgit.common.GitLogFetcher;
 import com.sukaiyi.visualgit.common.GitLogParser;
 import com.sukaiyi.visualgit.utils.DateUtils;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
+import freemarker.ext.servlet.HttpRequestHashModel;
 import io.undertow.server.HttpServerExchange;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -55,6 +56,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         long timestampStart = Long.MAX_VALUE;
         long timestampEnd = 0L;
         long totalLines = 0L;
+        Set<String> activeDays = new HashSet<>();
         for (GitCommitInfo commitInfo : commitInfos) {
             List<GitCommitInfo.GitCommitFileInfo> fileInfos = Optional.of(commitInfo)
                     .map(GitCommitInfo::getStats)
@@ -88,6 +90,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
             timestampStart = Math.min(timestampStart, commitTime);
             timestampEnd = Math.max(timestampEnd, commitTime);
             totalLines += commitInfo.getInsertions() - commitInfo.getDeletions();
+            activeDays.add(DateUtils.format(new Date(commitTime), "yyyy-MM-dd"));
         }
         fileTypeStatsMap = fileTypeStatsMap.entrySet().stream()
                 .sorted((e1, e2) -> e2.getValue() - e1.getValue())
@@ -103,6 +106,7 @@ public class OverviewHandler extends AbstractFreemakerHandler {
         data.put("totalDevelopers", developerStatInfoMap.size());
         data.put("developers", developerStatInfoMap.keySet());
         data.put("across", (timestampEnd - timestampStart) / 1000 / 60 / 60 / 24);
+        data.put("activeDays", activeDays.size());
         data.put("start", DateUtils.format(new Date(timestampStart), "yyyy-MM-dd"));
         data.put("end", DateUtils.format(new Date(timestampEnd), "yyyy-MM-dd"));
         data.put("maintainer", Optional.of(developerStatInfoMap).map(this::maintainer).orElse(null));
