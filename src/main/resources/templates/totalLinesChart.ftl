@@ -85,6 +85,7 @@
             {
                 name: '代码总量',
                 type: 'line',
+                smooth: true,
                 areaStyle: {},
                 data: ${data}
             },

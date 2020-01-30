@@ -10,6 +10,7 @@ import com.sukaiyi.visualgit.charts.dotchart.FileChangeDetailHandler;
 import com.sukaiyi.visualgit.charts.filelist.FileListHandler;
 import com.sukaiyi.visualgit.charts.overview.OverviewHandler;
 import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
+import com.sukaiyi.visualgit.charts.weekstatchart.WeekStatChartHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
 import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import io.undertow.Undertow;
@@ -50,6 +51,7 @@ public class VisualGitApplication {
                                 .match("/calendarChart", new CalendarChartHandler())
                                 .match("/branchgraph", new BranchGraphHandler())
                                 .match("/divisionrela", new DivisionRelaChartHandler())
+                                .match("/weekstatchart", new WeekStatChartHandler())
                                 .match("/filelist", new FileListHandler())
                                 .match("/commitDetail", new CommitDetailHandler())
                                 .match("/commitOfDate", new CommitOfDateHandler())
