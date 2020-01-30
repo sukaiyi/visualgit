@@ -24,30 +24,23 @@
 </div>
 <script type="text/javascript">
     option = {
+        legend: {},
         tooltip: {
-            padding: 10,
-            backgroundColor: '#222',
-            borderColor: '#777',
-            borderWidth: 1,
-            formatter: function (obj) {
-                var value = obj.value;
-                var date = new Date(value[0]);
-
-                return '<div style="border-bottom: 1px solid rgba(255,255,255,.3); padding-bottom: 7px;margin-bottom: 7px">'
-                    + '<span style="font-size: 18px;display: block">' + value[3] + '</span>'
-                    + '<span>' + value[4] + '</span>'
-                    + '</div>'
-                    + 'Hash：' + value[5] + '<br>'
-                    + '   Notes：' + value[6] + '<br>'
-                    + '   代码行：' + value[1] + '<br>'
-                    + ' 涉及文件：' + value[2] + '<br>'
-                    + ' 提交时间：' + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + '<br>';
-
-            }
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            },
+            formatter: function (params, ticket, callback) {
+                var timestamp = params[0].data[0];
+                var date = new Date(timestamp);
+                var dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+                return '日期:' + dateStr + '</br>' +
+                    '净增:' + (params[0].data[1] - params[1].data[1]) + '</br>' +
+                    '新增:' + params[0].data[1] + '</br>' +
+                    '删除:' + params[1].data[1] + '</br>';
             }
         },
         grid: {
@@ -83,11 +76,22 @@
         },
         series: [
             {
-                name: '代码总量',
+                name: '新增',
                 type: 'line',
                 smooth: true,
+                symbol: 'circle',
+                showSymbol: false,
                 areaStyle: {},
-                data: ${data}
+                data: ${insertionData}
+            },
+            {
+                name: '删除',
+                type: 'line',
+                smooth: true,
+                symbol: 'circle',
+                showSymbol: false,
+                areaStyle: {},
+                data: ${deletionData}
             },
         ]
     };
@@ -96,8 +100,6 @@
     var myChart = echarts.init(document.getElementById('main'));
     myChart.setOption(option);
     myChart.on('click', function (param) {
-        var data = param.data;
-        $('#modal').modal({remote: "commitDetail?hash=" + data[5]});
     });
     window.addEventListener("resize", function () {
         myChart.resize();
