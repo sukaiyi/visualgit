@@ -59,8 +59,6 @@
     var myChart = echarts.init(document.getElementById('main'));
     myChart.setOption(option);
     myChart.on('click', function (param) {
-        var data = param.data;
-        $('#modal').modal({remote: "commitDetail?hash=" + data[5]});
     });
     window.addEventListener("resize", function () {
         myChart.resize();
