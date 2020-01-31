@@ -34,13 +34,20 @@
                 }
             },
             formatter: function (params, ticket, callback) {
+                console.log(params);
                 var timestamp = params[0].data[0];
                 var date = new Date(timestamp);
                 var dateStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-                return '日期:' + dateStr + '</br>' +
-                    '净增:' + (params[0].data[1] - params[1].data[1]) + '</br>' +
-                    '新增:' + params[0].data[1] + '</br>' +
-                    '删除:' + params[1].data[1] + '</br>';
+                var tips = '日期:' + dateStr + '</br>';
+
+                for (var i = 0; i < params.length; i++) {
+                    var param = params[i];
+                    tips += param.seriesName + ': ' + param.data[1] + '</br>';
+                }
+                if (params.length === 2) {
+                    tips += '总行数: ' + (params[0].data[1] - params[1].data[1]) + '</br>';
+                }
+                return tips;
             }
         },
         grid: {
@@ -76,7 +83,7 @@
         },
         series: [
             {
-                name: '新增',
+                name: '累计增',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',
@@ -85,14 +92,14 @@
                 data: ${insertionData}
             },
             {
-                name: '删除',
+                name: '累计减',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',
                 showSymbol: false,
                 areaStyle: {},
                 data: ${deletionData}
-            },
+            }
         ]
     };
 
