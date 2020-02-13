@@ -12,13 +12,17 @@ import com.sukaiyi.visualgit.charts.overview.OverviewHandler;
 import com.sukaiyi.visualgit.charts.totallineschart.TotalLinesChartHandler;
 import com.sukaiyi.visualgit.charts.weekstatchart.WeekStatChartHandler;
 import com.sukaiyi.visualgit.webhandler.IndexHandler;
-import com.sukaiyi.visualgit.webhandler.StaticHandler;
 import io.undertow.Undertow;
+import io.undertow.server.HttpHandler;
+import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.util.Optional;
+
+import static io.undertow.Handlers.path;
+import static io.undertow.Handlers.resource;
 
 @Data
 @Slf4j
@@ -40,24 +44,23 @@ public class VisualGitApplication {
         }
         INSTANCE.setWorkRepo(workRepo);
 
+        HttpHandler pathHadnler = path()
+                .addExactPath("/index", new IndexHandler())
+                .addExactPath("/overview", new OverviewHandler())
+                .addExactPath("/dotchart", new DotChartHandler())
+                .addExactPath("/totalLinesChart", new TotalLinesChartHandler())
+                .addExactPath("/calendarChart", new CalendarChartHandler())
+                .addExactPath("/branchgraph", new BranchGraphHandler())
+                .addExactPath("/divisionrela", new DivisionRelaChartHandler())
+                .addExactPath("/weekstatchart", new WeekStatChartHandler())
+                .addExactPath("/filelist", new FileListHandler())
+                .addExactPath("/commitDetail", new CommitDetailHandler())
+                .addExactPath("/commitOfDate", new CommitOfDateHandler())
+                .addExactPath("/fileChangeDetail", new FileChangeDetailHandler())
+                .addPrefixPath("/static", resource(new ClassPathResourceManager(VisualGitApplication.class.getClassLoader(), "static")));
         Undertow server = Undertow.builder()
                 .addHttpListener(8080, "localhost")
-                .setHandler(
-                        new PathBasedWebRequestDispatcher()
-                                .match("/index", new IndexHandler())
-                                .match("/overview", new OverviewHandler())
-                                .match("/dotchart", new DotChartHandler())
-                                .match("/totalLinesChart", new TotalLinesChartHandler())
-                                .match("/calendarChart", new CalendarChartHandler())
-                                .match("/branchgraph", new BranchGraphHandler())
-                                .match("/divisionrela", new DivisionRelaChartHandler())
-                                .match("/weekstatchart", new WeekStatChartHandler())
-                                .match("/filelist", new FileListHandler())
-                                .match("/commitDetail", new CommitDetailHandler())
-                                .match("/commitOfDate", new CommitOfDateHandler())
-                                .match("/fileChangeDetail", new FileChangeDetailHandler())
-                                .match("/static/.*", new StaticHandler())
-                ).build();
+                .setHandler(pathHadnler).build();
         server.start();
     }
 

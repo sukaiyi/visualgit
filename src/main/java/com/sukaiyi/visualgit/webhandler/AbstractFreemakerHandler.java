@@ -6,20 +6,21 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import io.undertow.io.Sender;
+import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 @Slf4j
-public abstract class AbstractFreemakerHandler implements WebRequestHandler {
+public abstract class AbstractFreemakerHandler implements HttpHandler {
 
     protected abstract String getTemplate(HttpServerExchange exchange);
 
     protected abstract Object getDataModel(HttpServerExchange exchange);
 
     @Override
-    public void handle(HttpServerExchange exchange) {
+    public void handleRequest(HttpServerExchange exchange) {
         Sender sender = exchange.getResponseSender();
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         cfg.setClassLoaderForTemplateLoading(getClass().getClassLoader(), "/templates");
