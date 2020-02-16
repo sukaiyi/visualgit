@@ -3,7 +3,7 @@ package com.sukaiyi.visualgit.common;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sukaiyi.visualgit.utils.MD5Utils;
+import com.sukaiyi.common.utils.MD5Utils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

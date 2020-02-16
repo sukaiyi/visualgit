@@ -3,7 +3,7 @@ package com.sukaiyi.visualgit.charts.calendarchart;
 import com.google.gson.Gson;
 import com.sukaiyi.visualgit.charts.Chart;
 import com.sukaiyi.visualgit.common.GitCommitInfo;
-import com.sukaiyi.visualgit.utils.DateUtils;
+import com.sukaiyi.common.utils.DateUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;

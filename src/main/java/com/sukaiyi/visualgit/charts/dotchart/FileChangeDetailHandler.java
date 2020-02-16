@@ -1,7 +1,7 @@
 package com.sukaiyi.visualgit.charts.dotchart;
 
 import com.sukaiyi.visualgit.VisualGitApplication;
-import com.sukaiyi.visualgit.utils.IoUtils;
+import com.sukaiyi.common.utils.IoUtils;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
 import io.undertow.server.HttpServerExchange;
 import lombok.extern.slf4j.Slf4j;

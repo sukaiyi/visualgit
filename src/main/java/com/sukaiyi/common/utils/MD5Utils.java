@@ -1,4 +1,4 @@
-package com.sukaiyi.visualgit.utils;
+package com.sukaiyi.common.utils;
 
 import java.security.MessageDigest;
 

@@ -1,6 +1,6 @@
 package com.sukaiyi.visualgit.common;
 
-import com.sukaiyi.visualgit.utils.IoUtils;
+import com.sukaiyi.common.utils.IoUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;

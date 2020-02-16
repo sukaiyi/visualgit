@@ -1,5 +1,6 @@
 package com.sukaiyi.visualgit.utils;
 
+import com.sukaiyi.common.utils.MD5Utils;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

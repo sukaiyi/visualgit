@@ -1,10 +1,14 @@
-package com.sukaiyi.visualgit.utils;
+package com.sukaiyi.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtils {
+
+    private DateUtils() {
+
+    }
 
     public static String format(Date date, String format) {
         return new SimpleDateFormat(format).format(date);

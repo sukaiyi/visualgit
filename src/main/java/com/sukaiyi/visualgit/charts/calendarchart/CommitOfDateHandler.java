@@ -4,7 +4,7 @@ import com.sukaiyi.visualgit.VisualGitApplication;
 import com.sukaiyi.visualgit.common.GitCommitInfo;
 import com.sukaiyi.visualgit.common.GitLogFetcher;
 import com.sukaiyi.visualgit.common.GitLogParser;
-import com.sukaiyi.visualgit.utils.DateUtils;
+import com.sukaiyi.common.utils.DateUtils;
 import com.sukaiyi.visualgit.webhandler.AbstractFreemakerHandler;
 import io.undertow.server.HttpServerExchange;
 
