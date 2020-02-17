@@ -1,5 +1,7 @@
 package com.sukaiyi.visualgit;
 
+import com.sukaiyi.common.utils.BrowserUtils;
+import com.sukaiyi.common.utils.NetUtils;
 import com.sukaiyi.visualgit.charts.branchgraph.BranchGraphHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CalendarChartHandler;
 import com.sukaiyi.visualgit.charts.calendarchart.CommitOfDateHandler;
@@ -58,10 +60,13 @@ public class VisualGitApplication {
                 .addExactPath("/commitOfDate", new CommitOfDateHandler())
                 .addExactPath("/fileChangeDetail", new FileChangeDetailHandler())
                 .addPrefixPath("/static", resource(new ClassPathResourceManager(VisualGitApplication.class.getClassLoader(), "static")));
+        String host = "localhost";
+        int port = NetUtils.choosePort(9000, 9001, 9002);
         Undertow server = Undertow.builder()
-                .addHttpListener(8080, "localhost")
+                .addHttpListener(port, host)
                 .setHandler(pathHadnler).build();
         server.start();
+        BrowserUtils.openQuiet(String.format("http://%s:%s/index", host, port));
     }
 
     public static VisualGitApplication getInstance() {
